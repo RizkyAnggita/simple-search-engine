@@ -30,45 +30,46 @@ def search():
     if request.method=="POST":
         queryform = request.form["query"]
 
-        #Contoh
-        file1 = open("Deretan Kasus Korupsi Rugikan Negara di Atas Rp100 Miliar.txt", "rt")
-        data1 = file1.read()
-        # panjang = len(words)
-
+        #Upload multiple files txt
         filenames = []
-        filenames, files = request_txt()
+        filenames= request_txt()
         
         #Nama file yang diupload di simpan di list filenames
         #mengakses file nya -> "uploads/namafiles.txt"
-        count_kata = 0 #sebelum di stemming
-        for file in filenames:
-            file2 = open("uploads/"+file,"rt")
-            data2 = file2.read()
-            print(data2)
-            count_kata = count_kata + count_word(data2)
-
+        list_count_kata = count_kata_doc(filenames)
 
         #Stemming Docs dan filtering stopword
-        data_stemmed = stemming_doc(data1)
-        data_clean = filtering_stopword(data_stemmed)
+        data_stemmed_clean = stemming_filtering_doc(filenames)
 
         #Stemming query dan filtering stopword
-        query_stemmed = stemming_doc(queryform)
-        query_clean = filtering_stopword(query_stemmed)
+        query_stemmed_clean = stemming_filtering_query(queryform)
 
-        #Count jumlah kata di .txt
-        jumlah_kata = count_word(data1)
+        # Kondisi di sini, sudah terbentuk sebuah array data_stemmed_clean
+        # data_stemmed_clean berisi SELURUH kata pada tiap dokumen,
+        # Elemen ke-i berisi dokumen ke-i dari file yang di upload
+        # Langkah selanjutnya
 
-        #Kemunculan query pada .txt
-        nquery_data = count_query_word(data_clean, query_clean)
+        #Membuat sebuah array term (gabungan seluruh kata dari dokumen)
+        #  caranya adalah dengan menggabung seluruh elemen pada data_stemmed_clean,
+        #  kemudian split(), kemudian hapus elemen yang berulang/ganda
+        # Terbentuk sebuah array Term dengan tiap elemen ADALAH SEBUAH KATA
+
+        # Hitung kemunculan tiap term(KATA) pada tiap dokumen (yaitu pada setiap data_stemmed_clean[i]),
+        # kemudian masukkan jumlah kemunculan term pada sebuah array baru, yaitu array Di
+
+        # Hitung kemunculan tiap term(KATA) pada query
+        # kemudian masukkan jumlah kemumculan term pada sebuah array baru, yaitu array query
+
+        #Terbentuk 16 buah array baru, array Term dan array D1,D2,...Dn
 
 
-        return f"""<h1>Query yang diinput: {query_clean}</h1>
+
+        return f"""<h1>Query yang diinput: {query_stemmed_clean}</h1>
         <p>Daftar file yang dimasukkan: {filenames} </p>
-        <p>Jumlah kata pada seluruh dokumen yang dimasukkan : {count_kata}</p>
-        <p>Jumlah kata pada tes.txt adalah {jumlah_kata}</p>
-        <p>Jumlah query pada text: {nquery_data}</p>
-        <p>Setelah di stemming: {data_clean} </p>
+        <p>Banyaknya kata tiap dokumen: {list_count_kata}</p>
+        <p>Dokumen yang telah distemming dan filtering stopword: {data_stemmed_clean} </p>
+        <p></p>
+        <p>Jumlah query: {len(query_stemmed_clean)}</p>
         """
         
     else:
@@ -78,6 +79,7 @@ def search():
 # Nanti yang fungsi" ini dipisah aja di file .py lain, baru di import
 
 def request_txt():
+    #Melakukan request upload multiple files txt
     filenames = []
     files = request.files.getlist('files[]')
 
@@ -87,10 +89,39 @@ def request_txt():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['upload_folder'],filename))
             filenames.append(filename)
+    return filenames
 
-    for file in filenames:
-        print(file)
-    return filenames,  files
+def count_kata_doc(filenames):
+    # Menghitung kata tiap dokumen awal sebelum di stemming
+    # F.S. return sebuah list, elemennya banyaknya kata pada dokumen,
+    # berurut sesuai inputan
+    list_count_kata = []
+    for dokumen in filenames:
+        data = open_doc(dokumen)
+        list_count_kata.append(count_word(data))
+    return list_count_kata
+
+def stemming_filtering_doc(filenames):
+    #Stemming dokumen dan filtering stopword
+    data_stemmed_clean = []
+    for dokumen in filenames:
+        data = open_doc(dokumen)
+        data_stemmed = stemming_doc(data)
+        data_clean = filtering_stopword(data_stemmed)
+        data_stemmed_clean.append(data_clean)
+    return data_stemmed_clean
+
+def stemming_filtering_query(query):
+    #Stemming query dan filtering stopword
+    query_stemmed = stemming_doc(query)
+    query_clean = filtering_stopword(query_stemmed)
+    return query_clean.split()
+
+def open_doc(doc):
+    #Melakukan open file dan return data yang dibaca
+    file = open("uploads/" + doc, "rt")
+    data = file.read()
+    return data
 
 def stemming_doc(docs):
     #Proses Stemming dokumen
