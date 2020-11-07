@@ -1,8 +1,24 @@
 # Tubes Algeo 2
-
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template, request, flash
+from werkzeug.utils import secure_filename
+import os, shutil
 
 app = Flask(__name__)
+app.secret_key = 'secret key'
+path = os.getcwd()
+upload_folder = os.path.join(path, 'uploads')
+
+if os.path.exists(upload_folder):   #Kalau folder sudah ada, kosongkan
+    shutil.rmtree(upload_folder)
+os.makedirs(upload_folder)      #Create new folder
+
+
+app.config['upload_folder'] = upload_folder
+
+allowed_ext = set(['txt'])      #hanya txt yang boleh diupload
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_ext
 
 @app.route("/")
 def home():
@@ -15,12 +31,25 @@ def search():
         queryform = request.form["query"]
 
         #Contoh
-        file = open("Deretan Kasus Korupsi Rugikan Negara di Atas Rp100 Miliar.txt", "rt")
-        data = file.read()
+        file1 = open("Deretan Kasus Korupsi Rugikan Negara di Atas Rp100 Miliar.txt", "rt")
+        data1 = file1.read()
         # panjang = len(words)
 
+        filenames = []
+        filenames, files = request_txt()
+        
+        #Nama file yang diupload di simpan di list filenames
+        #mengakses file nya -> "uploads/namafiles.txt"
+        count_kata = 0 #sebelum di stemming
+        for file in filenames:
+            file2 = open("uploads/"+file,"rt")
+            data2 = file2.read()
+            print(data2)
+            count_kata = count_kata + count_word(data2)
+
+
         #Stemming Docs dan filtering stopword
-        data_stemmed = stemming_doc(data)
+        data_stemmed = stemming_doc(data1)
         data_clean = filtering_stopword(data_stemmed)
 
         #Stemming query dan filtering stopword
@@ -28,13 +57,15 @@ def search():
         query_clean = filtering_stopword(query_stemmed)
 
         #Count jumlah kata di .txt
-        jumlah_kata = count_word(data)
+        jumlah_kata = count_word(data1)
 
         #Kemunculan query pada .txt
         nquery_data = count_query_word(data_clean, query_clean)
 
 
         return f"""<h1>Query yang diinput: {query_clean}</h1>
+        <p>Daftar file yang dimasukkan: {filenames} </p>
+        <p>Jumlah kata pada seluruh dokumen yang dimasukkan : {count_kata}</p>
         <p>Jumlah kata pada tes.txt adalah {jumlah_kata}</p>
         <p>Jumlah query pada text: {nquery_data}</p>
         <p>Setelah di stemming: {data_clean} </p>
@@ -45,6 +76,21 @@ def search():
 
 
 # Nanti yang fungsi" ini dipisah aja di file .py lain, baru di import
+
+def request_txt():
+    filenames = []
+    files = request.files.getlist('files[]')
+
+    print(files)
+    for file in files:
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['upload_folder'],filename))
+            filenames.append(filename)
+
+    for file in filenames:
+        print(file)
+    return filenames,  files
 
 def stemming_doc(docs):
     #Proses Stemming dokumen
