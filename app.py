@@ -49,13 +49,14 @@ def search():
         # Elemen ke-i berisi dokumen ke-i dari file yang di upload
         # Langkah selanjutnya
 
-        #Membuat sebuah array term (gabungan seluruh kata dari dokumen)
+        #Membuat sebuah array term (gabungan seluruh kata dari dokumen + query)
         #  caranya adalah dengan menggabung seluruh elemen pada data_stemmed_clean,
         #  kemudian split(), kemudian hapus elemen yang berulang/ganda
         # Terbentuk sebuah array Term dengan tiap elemen ADALAH SEBUAH KATA
 
         # Hitung kemunculan tiap term(KATA) pada tiap dokumen (yaitu pada setiap data_stemmed_clean[i]),
-        # kemudian masukkan jumlah kemunculan term pada sebuah array baru, yaitu array Di
+        # kemudian masukkan jumlah kemunculan term pada sebuah array baru, yaitu array Di (D1,D2,...Dn)
+        
 
         # Hitung kemunculan tiap term(KATA) pada query
         # kemudian masukkan jumlah kemumculan term pada sebuah array baru, yaitu array query
@@ -77,6 +78,15 @@ def search():
 
 
 # Nanti yang fungsi" ini dipisah aja di file .py lain, baru di import
+
+def sort(arrayHasil, arrayDokumen):     #arrayDokumen = filenames
+    n = len(arrayHasil)
+    for i in range(n-1): 
+        for j in range(0, n-i-1): 
+            if arrayHasil[j] > arrayHasil[j+1] : 
+                arrayHasil[j], arrayHasil[j+1] = arrayHasil[j+1], arrayHasil[j]
+                arrayDokumen[j], arrayDokumen[j+1] = arrayDokumen[j+1], arrayDokumen[j]
+    return arrayHasil, arrayDokumen
 
 def request_txt():
     #Melakukan request upload multiple files txt
