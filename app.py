@@ -1,6 +1,7 @@
 # Tubes Algeo 2
 from flask import Flask, redirect, url_for, render_template, request, flash
 from werkzeug.utils import secure_filename
+from collections import Counter
 import os, shutil
 
 app = Flask(__name__)
@@ -56,16 +57,29 @@ def search():
 
         # Hitung kemunculan tiap term(KATA) pada tiap dokumen (yaitu pada setiap data_stemmed_clean[i]),
         # kemudian masukkan jumlah kemunculan term pada sebuah array baru, yaitu array Di (D1,D2,...Dn)
-        
+
 
         # Hitung kemunculan tiap term(KATA) pada query
         # kemudian masukkan jumlah kemumculan term pada sebuah array baru, yaitu array query
 
         #Terbentuk 16 buah array baru, array Term dan array D1,D2,...Dn
 
+        #Membentuk Term
+        term = ""
+        for i in range(len(data_stemmed_clean)):
+            term = term + " " +  data_stemmed_clean[i]
+        
+        for i in range(len(query_stemmed_clean)):
+            term = term + " " +  str(query_stemmed_clean[i])
+
+        print(term)
+
+        nonDuplicate = removeDuplicate(term)
 
 
         return f"""<h1>Query yang diinput: {query_stemmed_clean}</h1>
+        <p>Sebelum diremove double: {term}</p>
+        <p>Sesudah diremove double: {nonDuplicate}</p>        
         <p>Daftar file yang dimasukkan: {filenames} </p>
         <p>Banyaknya kata tiap dokumen: {list_count_kata}</p>
         <p>Dokumen yang telah distemming dan filtering stopword: {data_stemmed_clean} </p>
@@ -87,6 +101,14 @@ def sort(arrayHasil, arrayDokumen):     #arrayDokumen = filenames
                 arrayHasil[j], arrayHasil[j+1] = arrayHasil[j+1], arrayHasil[j]
                 arrayDokumen[j], arrayDokumen[j+1] = arrayDokumen[j+1], arrayDokumen[j]
     return arrayHasil, arrayDokumen
+
+def removeDuplicate(term):
+    term = term.split()
+    unique = []
+    for word in term:
+        if word not in unique:
+            unique.append(word)
+    return unique
 
 def request_txt():
     #Melakukan request upload multiple files txt
