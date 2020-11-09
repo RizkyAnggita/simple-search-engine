@@ -239,7 +239,7 @@ def sim(ArrayHasil):
 
 def countFoundTerm(term, stemmedData, stemmedQuery):
     TERM = removeDuplicate(term)
-    TERM = TERM.sort()
+    TERM.sort()
     arrayHasil = [[0 for i in range(len(TERM))] for j in range(len(stemmedData)+1)]
     for i in range(len(stemmedData)):
         termDocs = stemmedData[i].split() 
