@@ -215,5 +215,45 @@ def count_query_word(docs, queryform):
             count = count+1
     return count
 
+import math
+def dotProduct (ArrayHasil, IdxDocs) :
+    sum = 0
+    for j in range(len(ArrayHasil[0])):
+        sum += ArrayHasil[0][j] * ArrayHasil[IdxDocs][j]
+    return sum
+
+def besar(ArrayHasil, IdxDocs):
+    sum = 0
+    for j in range(len(ArrayHasil[IdxDocs])):
+        sum += pow(ArrayHasil[IdxDocs][j],2)
+    return math.sqrt(sum)
+
+def sim(ArrayHasil):
+    sim = [0 for i in range(len(ArrayHasil))]
+    Q = besar(ArrayHasil, 0)
+    for i in range(1,len(sim)):
+        D = besar(ArrayHasil, i)
+        dotQD = dotProduct(ArrayHasil, i)
+        sim[i] = dotQD / (Q * D)
+    return sim
+
+def countFoundTerm(term, stemmedData, stemmedQuery):
+    TERM = removeDuplicate(term)
+    TERM = TERM.sort()
+    arrayHasil = [[0 for i in range(len(TERM))] for j in range(len(stemmedData)+1)]
+    for i in range(len(stemmedData)):
+        termDocs = stemmedData[i].split() 
+        for j in range (len(TERM)):
+            for k in range (len(termDocs)):
+                if (TERM[j] == termDocs[k]):
+                    arrayHasil[i+1][j] += 1
+    termQuery = stemmedQuery
+    for j in range (len(TERM)):
+            for k in range (len(termQuery)):
+                if (TERM[j] == termQuery[k]):
+                    arrayHasil[0][j] += 1
+    return arrayHasil
+
+
 if __name__ == "__main__":
     app.run(debug=True)
