@@ -26,10 +26,27 @@ def home():
     a = "Rizky Anggita"
     return f"<h1>Hello{a}</h1>"
 
+@app.route("/test")
+def test():
+    filenames = ['dokumen 1','dokumen 2','dokumen 3']
+    return render_template("search.html", filename = filenames, lendata = len(filenames))
+
+@app.route("/view/<filename>")
+def show(filename):
+    
+    data = open_doc(filename)
+    return f"""
+    <h2>{filename} </h2>
+    <p> {data} </p> 
+    """
+
 @app.route("/search", methods=["POST", "GET"])
 def search():
     if request.method=="POST":
         queryform = request.form["query"]
+        if os.path.exists(upload_folder):   #Kalau folder sudah ada, kosongkan
+            shutil.rmtree(upload_folder)
+        os.makedirs(upload_folder)      #Create new folder
 
         #Upload multiple files txt
         filenames = []
@@ -37,7 +54,7 @@ def search():
         
         #Nama file yang diupload di simpan di list filenames
         #mengakses file nya -> "uploads/namafiles.txt"
-        list_count_kata = count_kata_doc(filenames)
+        array_count_kata = count_kata_doc(filenames)
 
         #Stemming Docs dan filtering stopword
         data_stemmed_clean = stemming_filtering_doc(filenames)
@@ -75,17 +92,19 @@ def search():
         print(term)
 
         nonDuplicate = removeDuplicate(term)
-
-
+        
         return f"""<h1>Query yang diinput: {query_stemmed_clean}</h1>
         <p>Sebelum diremove double: {term}</p>
         <p>Sesudah diremove double: {nonDuplicate}</p>        
         <p>Daftar file yang dimasukkan: {filenames} </p>
-        <p>Banyaknya kata tiap dokumen: {list_count_kata}</p>
+        <p>Banyaknya kata tiap dokumen: {array_count_kata}</p>
         <p>Dokumen yang telah distemming dan filtering stopword: {data_stemmed_clean} </p>
         <p></p>
         <p>Jumlah query: {len(query_stemmed_clean)}</p>
         """
+
+        #kalau mau pake search.html, uncomment
+        # return render_template("search.html", txt= filenames, lendata=len(filenames), NKata= array_count_kata)
         
     else:
         return render_template("index.html")
@@ -93,14 +112,15 @@ def search():
 
 # Nanti yang fungsi" ini dipisah aja di file .py lain, baru di import
 
-def sort(arrayHasil, arrayDokumen):     #arrayDokumen = filenames
+def sort(arrayHasil, arrayDokumen, array_count_kata):     #arrayDokumen = filenames
     n = len(arrayHasil)
     for i in range(n-1): 
         for j in range(0, n-i-1): 
             if arrayHasil[j] > arrayHasil[j+1] : 
                 arrayHasil[j], arrayHasil[j+1] = arrayHasil[j+1], arrayHasil[j]
                 arrayDokumen[j], arrayDokumen[j+1] = arrayDokumen[j+1], arrayDokumen[j]
-    return arrayHasil, arrayDokumen
+                array_count_kata[j], array_count_kata[j+1] = array_count_kata[j+1], array_count_kata[j]
+    return arrayHasil, arrayDokumen, array_count_kata
 
 def removeDuplicate(term):
     term = term.split()
