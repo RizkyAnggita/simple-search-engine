@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extend layout.html %}
+{% block content %}
+<!-- <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test</title>
-</head>
-<body>
+</head> -->
+<!-- <body> -->
     <form action="#" method="POST" enctype="multipart/form-data">
         <p>Upload Multiple Files: </p>
         <input type="file" name="files[]" multiple="true", autocomplete="off", required>
@@ -13,6 +14,7 @@
         <input type="search" name="query">
         <input type="submit" value="submit">
     </form>
-    
+<!--     
 </body>
-</html>
+</html> -->
+{% endblock content %}
