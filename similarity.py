@@ -1,11 +1,11 @@
 import math
 from docs import removeDuplicate
 
-def sort(arrayHasil, arrayDokumen, array_count_kata):     #arrayDokumen = filenames
+def sortHasil(arrayHasil, arrayDokumen, array_count_kata):     #arrayDokumen = filenames
     n = len(arrayHasil)
     for i in range(n-1): 
         for j in range(0, n-i-1): 
-            if arrayHasil[j] > arrayHasil[j+1] : 
+            if arrayHasil[j] < arrayHasil[j+1] : 
                 arrayHasil[j], arrayHasil[j+1] = arrayHasil[j+1], arrayHasil[j]
                 arrayDokumen[j], arrayDokumen[j+1] = arrayDokumen[j+1], arrayDokumen[j]
                 array_count_kata[j], array_count_kata[j+1] = array_count_kata[j+1], array_count_kata[j]
