@@ -51,10 +51,8 @@ def search():
         #Menghitung jumlah kata pada tiap dokumen awal
         array_count_kata = docs.count_kata_doc(filenames)
 
-        #Stemming Docs dan filtering stopword
+        #Stemming Docs, query dan filtering stopword
         data_stemmed_clean = text.stemming_filtering_doc(filenames)
-        
-        #Stemming query dan filtering stopword
         query_stemmed_clean = text.stemming_filtering_query(queryform)
 
         #Membentuk Term
@@ -66,26 +64,32 @@ def search():
         #Menghitung similarity 
         similar = similarity.sim(arrayHasil)
 
-        #Persen kemiripan
-        simPercentage = [similar[i]*100 for i in range (len(similar))]
+        #Persen kemiripan, pembulatan 3 angka di belakang koma
+        simPercentage = [round(similar[i]*100, 3) for i in range (len(similar))]
 
-        nonDuplicate = docs.removeDuplicate(term)
+        #Hanya diambil dari indeks ke-1 s.d. habis, karena indeks ke-0 adalah persentase kemiripan query
+        simPercentage = simPercentage[1: ]
 
-        return f"""<h1>Query yang diinput: {query_stemmed_clean}</h1>
-        <p>Sebelum diremove double: {term}</p>
-        <p>Sesudah diremove double: {nonDuplicate}</p>
-        <p> Array Hasil:   {arrayHasil}</p>
-        <p> Similarity : {similar} </p>
-        <p> Persen Similarity : {simPercentage} </p>      
-        <p>Daftar file yang dimasukkan: {filenames} </p>
-        <p>Banyaknya kata tiap dokumen: {array_count_kata}</p>
-        <p>Dokumen yang telah distemming dan filtering stopword: {data_stemmed_clean} </p>
-        <p></p>
-        <p>Jumlah query: {len(query_stemmed_clean)}</p>
-        """
+        # nonDuplicate = docs.removeDuplicate(term)
+
+        # Melalukan sorting dari dokumen dengan tingkat kemiripan paling tinggi
+        simPercentage, filenames, array_count_kata = similarity.sortHasil(simPercentage, filenames, array_count_kata)
+
+        # return f"""<h1>Query yang diinput: {query_stemmed_clean}</h1>
+        # <p>Sebelum diremove double: {term}</p>
+        # <p>Sesudah diremove double: {nonDuplicate}</p>
+        # <p> Array Hasil:   {arrayHasil}</p>
+        # <p> Similarity : {similar} </p>
+        # <p> Persen Similarity : {simPercentage} </p>      
+        # <p>Daftar file yang dimasukkan: {filenames} </p>
+        # <p>Banyaknya kata tiap dokumen: {array_count_kata}</p>
+        # <p>Dokumen yang telah distemming dan filtering stopword: {data_stemmed_clean} </p>
+        # <p></p>
+        # <p>Jumlah query: {len(query_stemmed_clean)}</p>
+        # """
 
         #kalau mau pake search.html, uncomment
-        # return render_template("search.html", txt= filenames, lendata=len(filenames), NKata= array_count_kata)
+        return render_template("search.html", txt= filenames, lendata=len(filenames), NKata= array_count_kata, persen = simPercentage, query = queryform)
         
     else:
         return render_template("index.html")
