@@ -1,5 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>{{ filename }} </h2>
-    <p> {{ data }} </p> 
+
+    <div class="container">
+        <a href="#" onclick="history.go(-1)">Kembali</a>
+        <h2>{{ filename }} </h2>
+        <p> {{ data }} </p> 
+    </div>
+    
 {% endblock content %}
