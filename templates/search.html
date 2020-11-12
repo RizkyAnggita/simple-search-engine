@@ -25,5 +25,33 @@
         </p>
         {% endfor %}
     </div>
+
+    
+    <div>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">No. </th>
+                    <th scope="col">Term</th>
+                    <th scope="col">Q</th>
+                    {% for i in range (lendata)%}
+                        <th scope="col"> D{{i+1}} </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range (lenquery)%}
+                <tr>
+                    <td>{{i+1}}</td>
+                    <td>{{querysplit[i]}} </td>
+                    <td>{{temp[i]}}</td>
+                    {% for j in range (lentabel)%}
+                    <td>{{term_tabel[j][i]}}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     
 {% endblock content %}
