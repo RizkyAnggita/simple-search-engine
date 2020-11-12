@@ -54,12 +54,13 @@ def search():
         #Stemming Docs, query dan filtering stopword
         data_stemmed_clean = text.stemming_filtering_doc(filenames)
         query_stemmed_clean = text.stemming_filtering_query(queryform)
+        query_stemmed_clean.sort()
 
         #Membentuk Term
         term = docs.makeTerm(data_stemmed_clean, query_stemmed_clean)
 
         #Melakukan penghitungan kemunculan term pada tiap dokumen dan query
-        arrayHasil = similarity.countFoundTerm(term, data_stemmed_clean, query_stemmed_clean)
+        arrayHasil = similarity.countFoundTerm(term, data_stemmed_clean, query_stemmed_clean, False)
         
         #Menghitung similarity 
         similar = similarity.sim(arrayHasil)
@@ -70,10 +71,14 @@ def search():
         #Hanya diambil dari indeks ke-1 s.d. habis, karena indeks ke-0 adalah persentase kemiripan query
         simPercentage = simPercentage[1: ]
 
-        # nonDuplicate = docs.removeDuplicate(term)
+        # Term untuk ditampilkan di page
+        termTabel = similarity.countFoundTerm(term, data_stemmed_clean, query_stemmed_clean, True)
+        queryTabel = termTabel[0]
+        termTabel = termTabel[1: ]
+        query = docs.removeDuplicate2(query_stemmed_clean)
 
         # Melalukan sorting dari dokumen dengan tingkat kemiripan paling tinggi
-        simPercentage, filenames, array_count_kata = similarity.sortHasil(simPercentage, filenames, array_count_kata)
+        simPercentage, filenames, array_count_kata, termTabel = similarity.sortHasil(simPercentage, filenames, array_count_kata, termTabel)
 
         # return f"""<h1>Query yang diinput: {query_stemmed_clean}</h1>
         # <p>Sebelum diremove double: {term}</p>
@@ -89,7 +94,7 @@ def search():
         # """
 
         #kalau mau pake search.html, uncomment
-        return render_template("search.html", txt= filenames, lendata=len(filenames), NKata= array_count_kata, persen = simPercentage, query = queryform)
+        return render_template("search.html", txt= filenames, lendata=len(filenames), lenquery=len(query),lentabel = len(termTabel), NKata= array_count_kata, persen = simPercentage, query = queryform, term_tabel = termTabel, temp = queryTabel, querysplit=query)
         
     else:
         return render_template("index.html")

@@ -1,15 +1,16 @@
 import math
-from docs import removeDuplicate
+from docs import removeDuplicate, removeDuplicate2
 
-def sortHasil(arrayHasil, arrayDokumen, array_count_kata):     #arrayDokumen = filenames
+def sortHasil(arrayHasil, arrayDokumen, array_count_kata, termTabel):     #arrayDokumen = filenames
     n = len(arrayHasil)
     for i in range(n-1): 
         for j in range(0, n-i-1): 
             if arrayHasil[j] < arrayHasil[j+1] : 
                 arrayHasil[j], arrayHasil[j+1] = arrayHasil[j+1], arrayHasil[j]
                 arrayDokumen[j], arrayDokumen[j+1] = arrayDokumen[j+1], arrayDokumen[j]
+                termTabel[j], termTabel[j+1] = termTabel[j+1], termTabel[j]
                 array_count_kata[j], array_count_kata[j+1] = array_count_kata[j+1], array_count_kata[j]
-    return arrayHasil, arrayDokumen, array_count_kata
+    return arrayHasil, arrayDokumen, array_count_kata, termTabel
 
 def dotProduct (ArrayHasil, IdxDocs) :
     sum = 0
@@ -32,9 +33,13 @@ def sim(ArrayHasil):
         sim[i] = dotQD / (Q * D)
     return sim
 
-def countFoundTerm(term, stemmedData, stemmedQuery):
-    TERM = removeDuplicate(term)
-    TERM.sort()
+def countFoundTerm(term, stemmedData, stemmedQuery, tabel):
+    if (tabel):
+        TERM = removeDuplicate2(stemmedQuery)
+        TERM.sort()
+    else:
+        TERM = removeDuplicate(term)
+        TERM.sort()
     arrayHasil = [[0 for i in range(len(TERM))] for j in range(len(stemmedData)+1)]
     for i in range(len(stemmedData)):
         termDocs = stemmedData[i].split() 

@@ -26,6 +26,13 @@ def removeDuplicate(term):
         if word not in unique:
             unique.append(word)
     return unique
+
+def removeDuplicate2(query):
+    unique = []
+    for word in query:
+        if word not in unique:
+            unique.append(word)
+    return unique
     
 def makeTerm (data_stemmed_clean, query_stemmed_clean):
     term = ""
