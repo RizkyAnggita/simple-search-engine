@@ -19,8 +19,7 @@ allowed_ext = set(['txt'])      #hanya txt yang boleh diupload
 
 @app.route("/")
 def home():
-    a = "Rizky Anggita"
-    return f"<h1>Hello{a}</h1>"
+    return render_template("home.html")
 
 @app.route("/test")
 def test():
@@ -31,10 +30,7 @@ def test():
 def show(filename):
     
     data = docs.open_doc(filename)
-    return f"""
-    <h2>{filename} </h2>
-    <p> {data} </p> 
-    """
+    return render_template("view.html", filename = filename, data = data)
 
 @app.route("/search", methods=["POST", "GET"])
 def search():

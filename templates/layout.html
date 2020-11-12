@@ -11,9 +11,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
     {% if title %}
-        <title>Flask Blog - {{ title }}</title>
+        <title>Keqing Engine - {{ title }}</title>
     {% else %}
-        <title>Flask Blog</title>
+        <title>Keqing Engine</title>
     {% endif %}
 </head>
 <body>
@@ -26,13 +26,7 @@
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="/">Home</a>
-              <a class="nav-item nav-link" href="/about">About</a>
-            </div>
-            <!-- Navbar Right Side -->
-            <div class="navbar-nav">
-              <a class="nav-item nav-link" href="/login">Login</a>
-              <a class="nav-item nav-link" href="/register">Register</a>
-            </div>
+              <a class="nav-item nav-link" href="/search">Search</a>
           </div>
         </div>
       </nav>
@@ -44,14 +38,8 @@
         </div>
         <div class="col-md-4">
           <div class="content-section">
-            <h3>Our Sidebar</h3>
-            <p class='text-muted'>You can put any information here you'd like.
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Latest Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
-                <li class="list-group-item list-group-item-light">etc</li>
-              </ul>
+            <h3>Cara pemakaian</h3>
+            <p class='text-muted'>klik Search, lalu upload file yang ingin disubmit, setelah itu cari query, lalu baru tekan submit.
             </p>
           </div>
         </div>
