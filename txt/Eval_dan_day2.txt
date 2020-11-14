@@ -1,0 +1,90 @@
+<Evaluasi>
+1. Perizinan
+	-format perizinan masih salah
+2. Talkshow
+	-sop untuk interupsi dibaca lagi
+3. Mentoring
+	-email masih belum melakukan profpic sama nama
+	-format nama akan diubah karena masalah teknis
+4. Umum
+	-kendala perubahan sop karena masalah teknis menyebabkan banyak peserta kebingungan
+	-pengecekan afk ada 49 orang yang diduga afk
+	-pemanjangan jangka afk tidak diterima
+	-
+<TUgas>
+1.Aplikasi Tools Visi Hidup(deadline : day-2)
+-Gambaran dari sekarang hingga lulus
+-> Langkah 
+-> Komitmen
+-> Gambaran kontribusi untuk HMIF
+NIM_VisiHidup_Nama
+2.Wawancara (deadline : day-2) peserta antar 2 kelompok buddies direcord, dikecilkan, mencatat semua data:
+a.Nama
+b.NIM
+c.Jurusan
+d.First Impression
+e.Keunikan
+video dan pdf kelompok _nomor buddies 
+folder kelompok -> nim -> nim _lawan narasumber
+3.Wawancara kating(satu kating)
+-minta jadwal wawancara
+nama
+jurusan
+angkatan
+hobi
+kota asal
+divisi dan posisi di HMIF jika pernah sekarang atau dulu
+divisi dan posisi di SPARTA dan dulu
+Pengalaman menarik dari HMIF
+Pertanyaan random(beda tiap orang)
+PEsan untuk SPARTAN 2019
+nim_namanarasumber
+4.Penunjukan Ketang
+
+Day-02 SPARTA HMIF ITB 2019
+<SESI I>
+IDENTITAS DAN PROFIL
+Logo dan Sejarah HMIF
+A. Logo HMIF
+1. warna dasar
+--> Kuning, arti optimisme, semangat, dan rasional
+6.hitam , kekokohan dan elegan
+2.Bentuk 
+-->Kotak melambangkan proses(mengacu pada flowchart) dan beretika(kerapian dan ketidakserampangan)
+7.Tulisan IF -> singkatan dari informatika
+3. Lambang Ganesha
+--> Lambang dari ITB
+4. Sembilan Garis
+-->kedinamisan dari HMIF(inspirasi dari IBM)
+5. Tulisan melengkung
+--> merangkul satu sama lain
+B. Sejarah
+Tanggal berdiri : 10 November 1982 (awalnya cuma IF STI baru ada 2008 )
+C. Asas
+--> berasaskan Tri Dharma PT dan kekeluargaan berlandaskan pancasila
+D. Maksud dan Tujuan HMIF
+1. Ikut mengusahakan tercapainya tujuan nasional melalui ekstrakurikuler
+2. Mengembangkan kemampuan keprofesian
+3. Mempererat kekeluargaan antar anggota dan warga ITB
+4. Mengusahakan hak dan kewajiban mahasiswa
+5. Mengembangkan dan memasyarakatkan ilmu if di Indonesia dan dunia
+E.Mars dan Hymne
+1. Hymne
+Untaian benang takdir, mempersatukan kita
+Teknik Informatika, berjiwa satria
+Adalah mimpi kita, gapai sejuta cita
+dengan satu semangat, dalam kebersamaan
+Persaudaraan diantara kita tak terlepaskan dan tak tergantikan
+
+Kami disini dengan tegar
+Kobarkan semangat demi nusa bangsa
+Kami bertekad untuk berbakti
+Pada Tuhan bangsa dan almamater
+2.Mars
+Informatika berjiwa ksatria
+Tidak pernah mengenal keluh kesah
+Tugas yang melimpah bukanlah rintangan
+Lautan ujian sudahlah biasa
+
+Hidup, hidup, hidup Informatika, ITB almamater tercinta (2x)
+
