@@ -52,6 +52,9 @@ def search():
         query_stemmed_clean = text.stemming_filtering_query(queryform)
         query_stemmed_clean.sort()
 
+        #Mengambil kalimat pertama untuk ditampilkan
+        kalimat_pertama = text.first_sentence(filenames)
+
         #Membentuk Term
         term = docs.makeTerm(data_stemmed_clean, query_stemmed_clean)
 
@@ -74,7 +77,7 @@ def search():
         query = docs.removeDuplicate2(query_stemmed_clean)
 
         # Melalukan sorting dari dokumen dengan tingkat kemiripan paling tinggi
-        simPercentage, filenames, array_count_kata, termTabel = similarity.sortHasil(simPercentage, filenames, array_count_kata, termTabel)
+        simPercentage, filenames, array_count_kata, termTabel, kalimat_pertama = similarity.sortHasil(simPercentage, filenames, array_count_kata, termTabel, kalimat_pertama)
 
         # return f"""<h1>Query yang diinput: {query_stemmed_clean}</h1>
         # <p>Sebelum diremove double: {term}</p>
@@ -90,7 +93,10 @@ def search():
         # """
 
         #kalau mau pake search.html, uncomment
-        return render_template("search.html", txt= filenames, lendata=len(filenames), lenquery=len(query),lentabel = len(termTabel), NKata= array_count_kata, persen = simPercentage, query = queryform, term_tabel = termTabel, temp = queryTabel, querysplit=query)
+        return render_template("search.html", txt= filenames, lendata=len(filenames),
+        lenquery=len(query),lentabel = len(termTabel), NKata= array_count_kata,
+        persen = simPercentage, query = queryform, term_tabel = termTabel,
+        temp = queryTabel, querysplit=query, kalimat = kalimat_pertama)
         
     else:
         return render_template("index.html")

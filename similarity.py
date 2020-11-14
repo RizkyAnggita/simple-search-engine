@@ -1,7 +1,7 @@
 import math
 from docs import removeDuplicate, removeDuplicate2
 
-def sortHasil(arrayHasil, arrayDokumen, array_count_kata, termTabel):     #arrayDokumen = filenames
+def sortHasil(arrayHasil, arrayDokumen, array_count_kata, termTabel, kalimat_pertama):     #arrayDokumen = filenames
     n = len(arrayHasil)
     for i in range(n-1): 
         for j in range(0, n-i-1): 
@@ -10,7 +10,9 @@ def sortHasil(arrayHasil, arrayDokumen, array_count_kata, termTabel):     #array
                 arrayDokumen[j], arrayDokumen[j+1] = arrayDokumen[j+1], arrayDokumen[j]
                 termTabel[j], termTabel[j+1] = termTabel[j+1], termTabel[j]
                 array_count_kata[j], array_count_kata[j+1] = array_count_kata[j+1], array_count_kata[j]
-    return arrayHasil, arrayDokumen, array_count_kata, termTabel
+                kalimat_pertama[j], kalimat_pertama[j+1] = kalimat_pertama[j+1], kalimat_pertama[j]
+                
+    return arrayHasil, arrayDokumen, array_count_kata, termTabel, kalimat_pertama
 
 def dotProduct (ArrayHasil, IdxDocs) :
     sum = 0
