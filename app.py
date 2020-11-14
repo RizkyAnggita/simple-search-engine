@@ -78,7 +78,7 @@ def search():
 
         # return f"""<h1>Query yang diinput: {query_stemmed_clean}</h1>
         # <p>Sebelum diremove double: {term}</p>
-        # <p>Sesudah diremove double: {nonDuplicate}</p>
+        # <p>Sesudah diremove double: </p>
         # <p> Array Hasil:   {arrayHasil}</p>
         # <p> Similarity : {similar} </p>
         # <p> Persen Similarity : {simPercentage} </p>      
