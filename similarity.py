@@ -15,18 +15,21 @@ def sortHasil(arrayHasil, arrayDokumen, array_count_kata, termTabel, kalimat_per
     return arrayHasil, arrayDokumen, array_count_kata, termTabel, kalimat_pertama
 
 def dotProduct (ArrayHasil, IdxDocs) :
+#Menghitung dotproduct dari dua buah vektor
     sum = 0
     for j in range(len(ArrayHasil[0])):
         sum += ArrayHasil[0][j] * ArrayHasil[IdxDocs][j]
     return sum
 
 def besar(ArrayHasil, IdxDocs):
+# Menghitung norm dari sebuah vektor term
     sum = 0
     for j in range(len(ArrayHasil[IdxDocs])):
         sum += pow(ArrayHasil[IdxDocs][j],2)
     return math.sqrt(sum)
 
 def sim(ArrayHasil):
+# Menghitung cosine similrity pada dokumen dan query dengan menerapkan dotproduct
     sim = [0 for i in range(len(ArrayHasil))]
     Q = besar(ArrayHasil, 0)
     for i in range(1,len(sim)):
@@ -36,6 +39,7 @@ def sim(ArrayHasil):
     return sim
 
 def countFoundTerm(term, stemmedData, stemmedQuery, tabel):
+#Fungsi Menghitung kemunculan seluruh term pada dokumen dan query
     if (tabel):
         TERM = removeDuplicate2(stemmedQuery)
         TERM.sort()
