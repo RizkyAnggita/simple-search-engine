@@ -11,7 +11,9 @@
 * [Contact](#contact)
 
 ## General Info
+Hampir semua orang pernah menggunakan search engine, seperti google, bing dan yahoo! search. Setiap hari, bahkan untuk sesuatu yang sederhana orang-orang menggunakan mesin pencarian. Pada tugas besar Aljabar Linear dan Geometri kali ini penulis akan menjelaskan bagaimana cara search engine tersebut mendapatkan semua dokumen kita berdasarkan apa yang ingin pengguna cari.
 
+Sebagaimana yang telah diajarkan di dalam kuliah pada materi vektor di ruang Euclidean, temu-balik informasi (information retrieval) merupakan proses menemukan kembali (retrieval) informasi yang relevan terhadap kebutuhan pengguna dari suatu kumpulan informasi secara otomatis. Biasanya, sistem temu balik informasi ini digunakan untuk mencari informasi pada informasi yang tidak terstruktur, seperti laman web atau dokumen.
 ## Screenshots
 <a href="https://ibb.co/zfghYrf"><img src="https://i.ibb.co/ryhGSmy/Snip20201115-5.png" alt="Snip20201115-5" border="0"></a>
 
@@ -38,7 +40,16 @@ Kami menggunakan text-editor Visual Studio Code pada proses pengembangan, beriku
 4. Semua prerequisite terpenuhi.
 
 ## Features
-
+Fitur yang sudah ada:
+- [x] Program mampu menerima search query. Search query dapat berupa kata dasar maupun berimbuhan.
+- [x] Hasil pencarian terurut berdasarkan similaritas tertinggi dari hasil teratas hingga hasil terbawah berupa judul dokumen, nilai similaritas, dan  kalimat pertama dari    dokumen tersebut.
+- [x] Adanya pembersihan dokumen dengan cara stemming dan penghapusan stopword
+- [x] Dapat menerima input hingga 15 dokumen
+Saran pengembangan
+- [] Memperindah desain website supaya lebih menarik bagi pengguna. Beberapa diantaranya adalah desain tombol, typography, color pallete, dan membuat tampilan yang responsif.
+- [] Membuat kode lebih rapi dan memberikan komentar yang lebih detail serta mudah dipahami.
+- [] Memberikan konvensi dalam menentukan standar nama fungsi atau variabel.
+- [] Menerapkan web scraping agar bisa menerima input html.
 ## Code Examples
 <p>Setelah semua prerequisite terpasang, jalankan program melalui app.py.
   Terdapat 2 cara untuk menjalankan nya pada local server.
