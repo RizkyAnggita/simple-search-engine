@@ -43,8 +43,9 @@ Kami menggunakan text-editor Visual Studio Code pada proses pengembangan, beriku
 Fitur yang sudah ada:
 - [x] Program mampu menerima search query. Search query dapat berupa kata dasar maupun berimbuhan.
 - [x] Hasil pencarian terurut berdasarkan similaritas tertinggi dari hasil teratas hingga hasil terbawah berupa judul dokumen, nilai similaritas, dan  kalimat pertama dari    dokumen tersebut.
-- [x] Adanya pembersihan dokumen dengan cara stemming dan penghapusan stopword
-- [x] Dapat menerima input hingga 15 dokumen
+- [x] Adanya pembersihan dokumen dengan cara stemming dan penghapusan stopword.
+- [x] Dapat menerima input hingga 15 dokumen.
+
 Saran pengembangan
 - [] Memperindah desain website supaya lebih menarik bagi pengguna. Beberapa diantaranya adalah desain tombol, typography, color pallete, dan membuat tampilan yang responsif.
 - [] Membuat kode lebih rapi dan memberikan komentar yang lebih detail serta mudah dipahami.
