@@ -1,4 +1,4 @@
-# Algeo02-19033
+# Simple Search Engine - Cosine Similarity
 > Sebuah mesin pencari sederhana yang menggunakan Cosine Similarity dalam proses perhitungan tingkat kemiripan.
 > Dibangun menggunakan Python dengan Flask, library Sastrawi, dan Bootstrap 4.
 
